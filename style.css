@@ -13,6 +13,7 @@ nav img {
 main {
   display: flex;
   flex-direction: row;
+  height: 92vh;
 }
 .gutter {
   background-color: var(--bg-2);
