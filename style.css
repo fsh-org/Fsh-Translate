@@ -1,0 +1,29 @@
+nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 8vh;
+  background-color: var(--bg-2);
+}
+nav img {
+  width: 6vh;
+  height: 6vh;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+.gutter {
+  background-color: var(--bg-2);
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+}
+
+.side {
+  background-color: var(--bg-2);
+}
