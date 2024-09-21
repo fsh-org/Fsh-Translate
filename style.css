@@ -1,22 +1,35 @@
+body {
+  width: 100vw;
+  width: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
 nav {
   display: flex;
   gap: 10px;
   align-items: center;
   height: 8vh;
+  height: 8dvh;
   background-color: var(--bg-2);
 }
 nav img {
   width: 6vh;
+  width: 6dvh
   height: 6vh;
+  heighr: 6dvh;
 }
 
 main {
   display: flex;
   flex-direction: row;
   height: 92vh;
+  height: 92dvh;
 }
 main div {
   height: 92vh;
+  height: 92dvh;
 }
 .gutter {
   background-color: var(--bg-2);
