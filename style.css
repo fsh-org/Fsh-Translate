@@ -15,6 +15,9 @@ main {
   flex-direction: row;
   height: 92vh;
 }
+main div {
+  height: 92vh;
+}
 .gutter {
   background-color: var(--bg-2);
   background-repeat: no-repeat;
