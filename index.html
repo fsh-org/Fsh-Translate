@@ -23,7 +23,12 @@
     <dialog id="file-load">
       <button onclick="this.parentElement.close()" class="modal-close">x</button>
       <h2>Load file</h2>
-      <input id="file" type="file" accept=".json,.ftl">
+      <select>
+        <option>JSON (File per language)</option>
+        <option>JSON (One file for all)</option>
+        <option>FTL (key=value)</option>
+      </select>
+      <input id="file" type="file" accept="text/*,application/*" multiple>
     </dialog>
     <dialog id="file-save">
       <button onclick="this.parentElement.close()" class="modal-close">x</button>
