@@ -21,7 +21,12 @@ function parse(con, type) {
   if (type === 'json') return JSON.parse(con);
   if (type === 'ftl') {
     let obj = {};
-    con.split('\n').map(ln=>obj[ln.split(' = ')[0]]=ln.split(' = ')[1]);
+    con.split('\n').map(ln=>{
+      ln = ln
+        .replace(/( ?)=( ?)/, '=')
+        .split('=');
+      obj[ln[0]] = ln.slice(1, ln.length).join('=')
+    });
     return obj;
   }
   return {}
@@ -38,15 +43,33 @@ function readFile(file) {
     reader.readAsText(file);
   });
 }
+function side() {
+  document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}"${l===main?' disabled':''}>${l}</option>`).join('');
+  document.getElementById('tree').innerHTML = 'stuf';
+}
 
 // On file load
-document.getElementById('file').addEventListener('change', (event)=>{
-  let file = event.target.files[0];
-  readFile(file)
-    .then(content=>{
-      parse(content, file.name.split('.').slice(-1)[0])
+var main = 'en';
+var data = {};
+document.getElementById('file-load-button').addEventListener('click', ()=>{
+  let files = document.getElementById('file').files;
+  let type = document.getElementById('type-load').value;
+  if (type === 'json-o') {
+    main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
+    Array.from(files).forEach(file => {
+      readFile(file).then(content => {
+        data[prompt('Iso code for: '+file.name, file.name.split('.')[0])] = parse(content, 'json');
+      })
     })
-    .catch(err=>{
-      alert('Error: '+err)
+    side();
+  } else if (type === 'json-m') {
+    main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
+    readFile(files[0]).then(content => {
+      data = parse(content, 'json');
     })
+    side();
+  } else if (type === 'ftl') {
+    // ftl
+    side();
+  }
 }, false)
