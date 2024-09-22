@@ -59,15 +59,15 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
         data[prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0])] = parse(content, 'json');
+        side();
       })
     }
-    side();
   } else if (type === 'json-m') {
     main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
     readFile(files[0]).then(content => {
       data = parse(content, 'json');
+      side();
     })
-    side();
   } else if (type === 'ftl') {
     // ftl
     side();
