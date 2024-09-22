@@ -20,8 +20,20 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
   </head>
   <body>
-    <dialog id="file-load"></dialog>
-    <dialog id="file-save"></dialog>
+    <dialog id="file-load">
+      <button onclick="this.parentElement.close()" class="modal-close">x</button>
+      <h2>Load file</h2>
+      <input type="file" accept=".json,.ftl">
+    </dialog>
+    <dialog id="file-save">
+      <button onclick="this.parentElement.close()" class="modal-close">x</button>
+      <h2>Save file</h2>
+      <select>
+        <option>.JSON</option>
+        <option>.FTL</option>
+      </select>
+      <button>Save</button>
+    </dialog>
     <nav>
       <img src="https://fsh.plus/fsh.png" width="25" height="25">
       <p>Fsh</p>
