@@ -5,6 +5,15 @@ body {
   height: 100dvh;
   overflow: hidden;
 }
+.modal-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+}
 
 .tippy-box {
   background-color: var(--bg-3);
