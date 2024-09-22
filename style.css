@@ -61,5 +61,7 @@ main div {
 }
 
 .side {
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg-2);
 }
