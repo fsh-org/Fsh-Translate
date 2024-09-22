@@ -12,8 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     placement: 'bottom',
     arrow: false,
     interactive: true,
-    allowHTML: true,
-    animation: 'shift-away-subtle'
+    allowHTML: true
   });
 });
 
