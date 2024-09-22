@@ -1,5 +1,20 @@
+function openModal(id) {
+  document.getElementById(id).showModal();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  Split(['.side', '.panel']);
+  Split(['.side', '.panel'], {
+    sizes: [25, 75]
+  });
+  tippy('#nav-file-button', {
+    content: `<button onclick="openModal('file-load')">Load</button><button onclick="openModal('file-save')">Save</button>`,
+    trigger: 'click',
+    placement: 'bottom',
+    arrow: false,
+    interactive: true,
+    allowHTML: true,
+    animation: 'shift-away-subtle'
+  });
 });
 
 function parse(con, type) {
