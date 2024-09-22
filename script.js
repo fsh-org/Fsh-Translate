@@ -56,11 +56,11 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
   let type = document.getElementById('type-load').value;
   if (type === 'json-o') {
     main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
-    Array.from(files).forEach(file => {
-      readFile(file).then(content => {
-        data[prompt('Iso code for: '+file.name, file.name.split('.')[0])] = parse(content, 'json');
+    for (let i = 0; i<files.length; i++) {
+      readFile(files[i]).then(content => {
+        data[prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0])] = parse(content, 'json');
       })
-    })
+    }
     side();
   } else if (type === 'json-m') {
     main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
