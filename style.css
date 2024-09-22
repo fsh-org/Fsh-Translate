@@ -1,6 +1,6 @@
 body {
   width: 100vw;
-  width: 100dvh;
+  width: 100dvw;
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
@@ -16,9 +16,9 @@ nav {
 }
 nav img {
   width: 6vh;
-  width: 6dvh
+  width: 6dvh;
   height: 6vh;
-  heighr: 6dvh;
+  height: 6dvh;
 }
 
 main {
