@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowHTML: true
   });
   tippy('#nav-editor-button', {
-    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en')">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button>`,
+    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en');side()">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button>`,
     trigger: 'click',
     placement: 'bottom',
     arrow: false,
