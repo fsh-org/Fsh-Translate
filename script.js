@@ -44,10 +44,7 @@ function readFile(file) {
   });
 }
 function ObjectToTree(obj, prefix) {
-  if (prefix.startsWith('.')) {
-    prefix = prefix.slice(1, prefix.length)
-  }
-  Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button>${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k]), prefix+'.'+k}</details>`)
+  Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button>${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`)
 }
 function side() {
   document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
