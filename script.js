@@ -70,7 +70,7 @@ function normalizeCodes() {
   Object.keys(orig).forEach(l => {
     let conversion = l.replace('_','-').split('-').slice(0,2);
     conversion[0] = conversion[0].toLowerCase().slice(0,3);
-    conversion[1] = conversion[1].toUpperCase().slice(0,3);
+    if (conversion[1]) conversion[1] = conversion[1].toUpperCase().slice(0,3);
     obj[conversion.join('-')] = orig[l];
     data = obj;
     side();
