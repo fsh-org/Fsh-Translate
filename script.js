@@ -52,13 +52,13 @@ function side() {
 }
 
 // On file load
-var main = 'en';
+var main;
 var data = {};
 document.getElementById('file-load-button').addEventListener('click', ()=>{
   let files = document.getElementById('file').files;
   let type = document.getElementById('type-load').value;
+  main ??= prompt('Main language iso code (ej: en, es-ES...)', 'en') || 'en';
   if (type === 'json-o') {
-    main = prompt('Main language iso code (ej: en, es-ES...)', 'en') || 'en';
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
         let code = prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0]);
@@ -69,9 +69,11 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
       })
     }
   } else if (type === 'json-m') {
-    main = prompt('Main language iso code (ej: en, es-ES...)') || 'en';
     readFile(files[0]).then(content => {
-      data = parse(content, 'json');
+      let parsed = parse(content, 'json');
+      Object.keys(parsed).forEach(l => {
+        data[l] = parsed[l]
+      })
       side();
     })
   } else if (type === 'ftl') {
