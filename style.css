@@ -64,6 +64,7 @@ main div {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-2);
+  overflow: auto;
 }
 details {
   padding: 2px;
