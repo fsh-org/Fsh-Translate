@@ -44,8 +44,8 @@ function readFile(file) {
   });
 }
 function side() {
-  document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}"${l===main?' disabled':''}>${l}</option>`).join('');
-  document.getElementById('tree').innerHTML = 'stuf';
+  document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
+  document.getElementById('tree').innerHTML = Object.values(data[document.getElementById('lang-select').value]).map(v=>(typeof v)==='string'?'<button></button>':'<details><summary>'+v+'</summary></details>');
 }
 
 // On file load
