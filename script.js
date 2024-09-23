@@ -76,8 +76,11 @@ function normalizeCodes() {
     side();
   })
 }
+function loadPanelFor(id) {
+  document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>`;
+}
 function ObjectToTree(obj, prefix) {
-  return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button>${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
+  return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
 }
 function side() {
   if (!data[main]) return;
