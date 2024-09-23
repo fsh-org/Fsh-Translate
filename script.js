@@ -11,6 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     interactive: true,
     allowHTML: true
   });
+  tippy('#nav-editor-button', {
+    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en')">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button>`,
+    trigger: 'click',
+    placement: 'bottom',
+    arrow: false,
+    interactive: true,
+    allowHTML: true
+  });
 });
 
 // Utility functions
@@ -55,6 +63,18 @@ function addLang() {
   if (!code) return;
   data[code] = {};
   side();
+}
+function normalizeCodes() {
+  let obj = {};
+  let orig = structuredClone(data);
+  Object.keys(orig).forEach(l => {
+    let conversion = l.replace('_','-').split('-').slice(0,2);
+    conversion[0] = conversion[0].toLowerCase().slice(0,3);
+    conversion[1] = conversion[1].toUpperCase().slice(0,3);
+    obj[conversion.join('-')] = orig[l];
+    data = obj;
+    side();
+  })
 }
 function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button>${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
