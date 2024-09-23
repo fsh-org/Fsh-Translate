@@ -66,6 +66,14 @@ main div {
   background-color: var(--bg-2);
   overflow: auto;
 }
+.side > span {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+#lang-select {
+  flex: 1;
+}
 details {
   padding: 2px;
   margin-left: 15px;
