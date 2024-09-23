@@ -43,9 +43,12 @@ function readFile(file) {
     reader.readAsText(file);
   });
 }
+function ObjectToTree(obj, prefix) {
+  Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button>${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k]), (prefix.length?prefix+'.':'')+k}</details>`)
+}
 function side() {
   document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
-  document.getElementById('tree').innerHTML = Object.values(data[document.getElementById('lang-select').value]).map(v=>(typeof v)==='string'?'<button></button>':'<details><summary>'+v+'</summary></details>');
+  document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
 }
 
 // On file load
