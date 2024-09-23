@@ -73,3 +73,10 @@ details {
 #tree > details {
   margin-left: 0px;
 }
+#tree button {
+  display: block;
+  margin: 2px;
+  padding: 2px;
+  border: none;
+  border-radius: 0px;
+}
