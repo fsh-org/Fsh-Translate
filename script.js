@@ -86,12 +86,10 @@ function setStringForLang(lang, val, prefix) {
   let path = data[lang];
   const keys = prefix.split('.');
   keys.forEach((pre, index)=>{
-    if (!path[pre]) {
-      path[pre] = {};
-      path = path[pre];
-    } else if (index === keys.length - 1) {
+    if (index === keys.length - 1) {
       path[pre] = val;
     } else {
+      if (!path[pre]) path[pre] = {};
       path = path[pre];
     }
   });
