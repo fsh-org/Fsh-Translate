@@ -76,8 +76,16 @@ function normalizeCodes() {
     side();
   })
 }
+function getStringForLang(lang, prefix) {
+  let path = data[lang];
+  prefix.split('.').forEach(pre => path=path[pre]);
+  return path;
+}
 function loadPanelFor(id) {
-  document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>`;
+  document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>
+<p>${getStringForLang(main, id)}</p>
+<hr>
+<textarea>${getStringForLang(document.getElementById('lang-select').value, id)}</textarea>`;
 }
 function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
