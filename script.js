@@ -88,6 +88,7 @@ function setStringForLang(lang, val, prefix) {
   keys.forEach((pre, index)=>{
     if (!path[pre]) {
       path[pre] = {};
+      path = path[pre];
     } else if (index === keys.length - 1) {
       path[pre] = val;
     } else {
