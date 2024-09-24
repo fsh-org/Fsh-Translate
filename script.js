@@ -81,10 +81,17 @@ function getStringForLang(lang, prefix) {
   prefix.split('.').forEach(pre => path=(path[pre]??''));
   return path ?? '';
 }
-function setStringForLang(lang, val, prefix) {
+function setStringForLang(lang, val, prefix) { 
   let path = data[lang];
-  prefix.split('.').forEach(pre => {if(!path[pre]){return;};path=path[pre]});
-  path = val;
+  const keys = prefix.split('.');
+  keys.forEach((pre, index)=>{
+    if (!path[pre]) {return}
+    if (index === keys.length - 1) {
+      path[pre] = val;
+    } else {
+      path = path[pre];
+    }
+  });
 }
 function loadPanelFor(id) {
   let cur = document.getElementById('lang-select').value;
