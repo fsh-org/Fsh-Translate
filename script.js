@@ -63,6 +63,7 @@ function addLang() {
   if (!code) return;
   data[code] = {};
   side();
+  document.getElementById('lang-select').value = code;
 }
 function normalizeCodes() {
   let obj = {};
@@ -98,7 +99,7 @@ function loadPanelFor(id) {
   document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>
 <p>${getStringForLang(main, id)}</p>
 <hr>
-<textarea class="editor" onkeyup="setStringForLang('${cur}', this.value, '${id}')">${getStringForLang(cur, id)}</textarea>`;
+<textarea id="editor" class="editor" onkeyup="setStringForLang('${cur}', this.value, '${id}')">${getStringForLang(cur, id)}</textarea>`;
 }
 function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
