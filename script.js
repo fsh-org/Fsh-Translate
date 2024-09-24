@@ -81,11 +81,17 @@ function getStringForLang(lang, prefix) {
   prefix.split('.').forEach(pre => path=(path[pre]??''));
   return path ?? '';
 }
+function setStringForLang(lang, val, prefix) {
+  let path = data[lang];
+  prefix.split('.').forEach(pre => {if(!path[pre]){return;};path=path[pre]});
+  path = val;
+}
 function loadPanelFor(id) {
+  let cur = document.getElementById('lang-select').value;
   document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>
 <p>${getStringForLang(main, id)}</p>
 <hr>
-<textarea class="editor">${getStringForLang(document.getElementById('lang-select').value, id)}</textarea>`;
+<textarea class="editor" onkeyup="setStringForLang('${cur}', this.value, '${id}')">${getStringForLang(cur, id)}</textarea>`;
 }
 function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
