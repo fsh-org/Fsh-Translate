@@ -109,6 +109,13 @@ function side() {
   document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
   document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
 }
+function download(url) {
+  let link = document.createElement('a');
+  link.href = url;
+  link.download = 'translations.zip';
+  link.click();
+  link.remove();
+}
 
 // On file load
 var main;
@@ -136,5 +143,22 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
   } else if (type === 'ftl') {
     // ftl
     side();
+  }
+}, false)
+document.getElementById('file-save-button').addEventListener('click', ()=>{
+  let type = document.getElementById('type-save').value;
+  if (type === 'json-o') {
+    let zip = new JSZip();
+    Object.keys(data).forEach(lang => {
+      zip.file(lang+'.json', data[lang])
+    })
+    zip.generateAsync({ type: "blob" })
+      .then(content => {
+        download(URL.createObjectURL(content));
+      });
+  } else if (type === 'json-m') {
+    download(URL.createObjectURL(new Blob(['ff'])));
+  } else if (type === 'ftl') {
+    // ftl
   }
 }, false)
