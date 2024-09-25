@@ -35,12 +35,12 @@
     <dialog id="file-save">
       <button onclick="this.parentElement.close()" class="modal-close">x</button>
       <h2>Save file</h2>
-      <select>
+      <select id="type-save">
         <option value="json-o">JSON (File per language)</option>
         <option value="json-m">JSON (One file for all)</option>
         <option value="ftl">FTL (key=value)</option>
       </select>
-      <button>Save</button>
+      <button id="file-save-button">Save</button>
     </dialog>
     <nav>
       <img src="https://fsh.plus/fsh.png" width="25" height="25">
