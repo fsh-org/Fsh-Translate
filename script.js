@@ -29,12 +29,16 @@ function parse(con, type) {
   if (type === 'json') return JSON.parse(con);
   if (type === 'ftl') {
     let obj = {};
-    con.split('\n').map(ln=>{
-      ln = ln
-        .replace(/( ?)=( ?)/, '=')
-        .split('=');
-      obj[ln[0]] = ln.slice(1, ln.length).join('=')
-    });
+    con
+      .split('\n')
+      .map(ln=>ln.trim())
+      .filter(ln=>ln.length>1)
+      .map(ln=>{
+        ln = ln
+          .replace(/( ?)=( ?)/, '=')
+          .split('=');
+        obj[ln[0]] = ln.slice(1, ln.length).join('=')
+      });
     return obj;
   }
   return {}
@@ -117,13 +121,15 @@ function download(url, name) {
   link.remove();
 }
 function OBJToFTL(o) {
-  return Object.keys(o).map(k => {
-    if (typeof o[k] === 'string') {
-      return `${k} = ${o[k]}`;
-    } else {
-      return 'Objects in Objects not supported yet, sorry!'
-    }
-  }).join('\n');
+  return Object.keys(o)
+    .filter(k=>k.length>1)
+    .map(k => {
+      if (typeof o[k] === 'string') {
+        return `${k} = ${o[k]}`;
+      } else {
+        return 'Objects in Objects not supported yet, sorry!'
+      }
+    }).join('\n');
 }
 
 // File load
