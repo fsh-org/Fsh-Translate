@@ -157,7 +157,7 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
         download(URL.createObjectURL(content));
       });
   } else if (type === 'json-m') {
-    download(URL.createObjectURL(new Blob(['ff'])));
+    download(URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)])));
   } else if (type === 'ftl') {
     // ftl
   }
