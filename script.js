@@ -109,15 +109,24 @@ function side() {
   document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
   document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
 }
-function download(url) {
+function download(url, name) {
   let link = document.createElement('a');
   link.href = url;
-  link.download = 'translations.zip';
+  link.download = name;
   link.click();
   link.remove();
 }
+function OBJToFTL(o) {
+  return Object.keys(o).map(k => {
+    if (typeof o[k] === 'string') {
+      return `${k} = ${o[k]}`;
+    } else {
+      return 'Objects in Objects not supported yet, sorry!'
+    }
+  }).join('\n');
+}
 
-// On file load
+// File load
 var main;
 var data = {};
 document.getElementById('file-load-button').addEventListener('click', ()=>{
@@ -141,10 +150,17 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
       })
     })
   } else if (type === 'ftl') {
-    // ftl
-    side();
+    for (let i = 0; i<files.length; i++) {
+      readFile(files[i]).then(content => {
+        let code = prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0]);
+        data[code] = parse(content, 'ftl');
+        side();
+      })
+    }
   }
 }, false)
+
+// File save
 document.getElementById('file-save-button').addEventListener('click', ()=>{
   let type = document.getElementById('type-save').value;
   if (type === 'json-o') {
@@ -154,11 +170,18 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
     })
     zip.generateAsync({ type: "blob" })
       .then(content => {
-        download(URL.createObjectURL(content));
+        download(URL.createObjectURL(content), 'translations.zip');
       });
   } else if (type === 'json-m') {
-    download(URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)])));
+    download(URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)])), 'translations.json');
   } else if (type === 'ftl') {
-    // ftl
+    let zip = new JSZip();
+    Object.keys(data).forEach(lang => {
+      zip.file(lang+'.json', OBJToFTL(data[lang]))
+    })
+    zip.generateAsync({ type: "blob" })
+      .then(content => {
+        download(URL.createObjectURL(content), 'translations.zip');
+      });
   }
 }, false)
