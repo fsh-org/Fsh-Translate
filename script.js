@@ -150,7 +150,7 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
   if (type === 'json-o') {
     let zip = new JSZip();
     Object.keys(data).forEach(lang => {
-      zip.file(lang+'.json', data[lang])
+      zip.file(lang+'.json', JSON.stringify(data[lang], null, 2))
     })
     zip.generateAsync({ type: "blob" })
       .then(content => {
