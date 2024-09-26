@@ -1,6 +1,12 @@
-function fromObject(obj) {}
+function fromObjecrWithPrefix(obj, prefix) {
+  return 
+}
 
-function toObject(obj) {}
+function fromObject(obj) {
+  return Object.keys(obj)
+}
+
+function toObject(ftl) {}
 
 module.exports = {
   fromObject,
