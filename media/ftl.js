@@ -3,14 +3,14 @@ function fromObjecrWithPrefix(obj, prefix) {
     .filter(k=>k.length>1)
     .map(k => {
       if (typeof o[k] === 'string') {
-        return `${k} = ${o[k]}`;
+        return `${prefix}-${k} = ${o[k]}`;
       } else {
-        return 'Objects in Objects not supported yet, sorry!'
+        return fromObjectWithPrefix(o[k], prefix+'-'+k)
       }
     }).join('\n');
 }
 
-function fromObject(obj) {
+export function fromObject(obj) {
   return Object.keys(obj)
     .filter(k=>k.length>1)
     .map(k => {
@@ -22,9 +22,4 @@ function fromObject(obj) {
     }).join('\n');
 }
 
-function toObject(ftl) {}
-
-module.exports = {
-  fromObject,
-  toObject
-}
+export function toObject(ftl) {}
