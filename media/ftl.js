@@ -1,6 +1,6 @@
 function fromObjecrWithPrefix(obj, prefix) {
   return Object.keys(obj)
-    .filter(k=>k.length>1)
+    .filter(k => k.length>1)
     .map(k => {
       if (typeof o[k] === 'string') {
         return `${prefix}-${k} = ${o[k]}`;
@@ -12,7 +12,7 @@ function fromObjecrWithPrefix(obj, prefix) {
 
 export function fromObject(obj) {
   return Object.keys(obj)
-    .filter(k=>k.length>1)
+    .filter(k => k.length>1)
     .map(k => {
       if (typeof o[k] === 'string') {
         return `${k} = ${o[k]}`;
@@ -22,4 +22,15 @@ export function fromObject(obj) {
     }).join('\n');
 }
 
-export function toObject(ftl) {}
+export function toObject(ftl) {
+  let obj = {};
+  ftl = ftl
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l.length>1)
+    .forEach(l => {
+      let p = l.split(' = ');
+      obj[p[0]] = p.slice(1,p.length).join(' = ');
+    });
+  return obj;
+}
