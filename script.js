@@ -1,3 +1,7 @@
+// Imports
+import * as ftl from '/media/ftl.js'
+console.log(ftl)
+
 // On window load do some stuff
 document.addEventListener("DOMContentLoaded", () => {
   Split(['.side', '.panel'], {
@@ -191,3 +195,7 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
       });
   }
 }, false)
+
+// Lang add/remove
+document.getElementById('lang-add').addEventListener('click', ()=>{addLang()})
+document.getElementById('lang-remove').addEventListener('click', ()=>{deleteCurrentLang()})
