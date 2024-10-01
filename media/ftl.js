@@ -30,12 +30,12 @@ export function toObject(ftl) {
     .filter(l => l.length>1)
     .forEach(l => {
       let p = l.split(' = ');
-      let k = p.split('-');
+      let k = p[0].split('-');
       p = p.slice(1,p.length).join(' = ');
       let t = obj;
       for (let i = 0; i<k.length; i++) {
-        if (i-1==k.length) {
-          t[k[i]] = p
+        if (i==k.length-1) {
+          t[k[i]] = p;
         } else {
           if (!t[k[i]]) t[k[i]] = {};
           t = t[k[i]];
