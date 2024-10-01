@@ -12,7 +12,7 @@ function fromObjecrWithPrefix(obj, prefix) {
 
 export function fromObject(obj) {
   return Object.keys(obj)
-    .filter(k => k.length>1)
+    .filter(k => k.length>0)
     .map(k => {
       if (typeof obj[k] === 'string') {
         return `${k} = ${obj[k]}`;
