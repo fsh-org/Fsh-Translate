@@ -1,5 +1,5 @@
 // Imports
-import * as ftl from '/media/ftl.js'
+import * as ftl from '/media/parsers/ftl.js'
 
 // On window load do some stuff
 document.addEventListener("DOMContentLoaded", () => {
