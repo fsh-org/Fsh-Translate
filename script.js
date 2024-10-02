@@ -1,6 +1,5 @@
 // Imports
 import * as ftl from '/media/ftl.js'
-console.log(ftl)
 
 // On window load do some stuff
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,20 +30,7 @@ function openModal(id) {
 }
 function parse(con, type) {
   if (type === 'json') return JSON.parse(con);
-  if (type === 'ftl') {
-    let obj = {};
-    con
-      .split('\n')
-      .map(ln=>ln.trim())
-      .filter(ln=>ln.length>1)
-      .map(ln=>{
-        ln = ln
-          .replace(/( ?)=( ?)/, '=')
-          .split('=');
-        obj[ln[0]] = ln.slice(1, ln.length).join('=')
-      });
-    return obj;
-  }
+  if (type === 'ftl') return ftl.toObject(con);
   return {}
 }
 function readFile(file) {
@@ -124,17 +110,6 @@ function download(url, name) {
   link.click();
   link.remove();
 }
-function OBJToFTL(o) {
-  return Object.keys(o)
-    .filter(k=>k.length>1)
-    .map(k => {
-      if (typeof o[k] === 'string') {
-        return `${k} = ${o[k]}`;
-      } else {
-        return 'Objects in Objects not supported yet, sorry!'
-      }
-    }).join('\n');
-}
 
 // File load
 var main;
@@ -187,7 +162,7 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
   } else if (type === 'ftl') {
     let zip = new JSZip();
     Object.keys(data).forEach(lang => {
-      zip.file(lang+'.json', OBJToFTL(data[lang]))
+      zip.file(lang+'.json', ftl.fromObject(data[lang]))
     })
     zip.generateAsync({ type: "blob" })
       .then(content => {
