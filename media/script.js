@@ -25,9 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Utility functions
-function openModal(id) {
-  document.getElementById(id).showModal();
-}
 function parse(con, type) {
   if (type === 'json') return JSON.parse(con);
   if (type === 'ftl') return ftl.toObject(con);
@@ -103,6 +100,7 @@ function side() {
   document.getElementById('lang-select').innerHTML = `<option value="${main}" disabled>${main}</option>`+Object.keys(data).filter(l=>l!==main).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
   document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
 }
+window.side = side;
 function download(url, name) {
   let link = document.createElement('a');
   link.href = url;
@@ -114,6 +112,8 @@ function download(url, name) {
 // File load
 var main;
 var data = {};
+window.main = main;
+window.data = data;
 document.getElementById('file-load-button').addEventListener('click', ()=>{
   let files = document.getElementById('file').files;
   let type = document.getElementById('type-load').value;
