@@ -93,6 +93,7 @@ function loadPanelFor(id) {
 <hr>
 <textarea id="editor" class="editor" onkeyup="setStringForLang('${cur}', this.value, '${id}')">${getStringForLang(cur, id)}</textarea>`;
 }
+window.loadPanelFor = loadPanelFor;
 function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details id="d-${(prefix.length?prefix+'.':'')+k}"${document.getElementById(`d-${(prefix.length?prefix+'.':'')+k}`)?.getAttribute('open')?' open':''}><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
 }
