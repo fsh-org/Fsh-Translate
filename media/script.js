@@ -68,6 +68,7 @@ function normalizeCodes() {
     side();
   })
 }
+window.normalizeCodes = normalizeCodes;
 function getStringForLang(lang, prefix) {
   let path = data[lang];
   prefix.split('.').forEach(pre => path=(path[pre]??''));
