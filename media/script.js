@@ -99,7 +99,7 @@ function ObjectToTree(obj, prefix) {
 }
 function side() {
   if (!data[main]) return;
-  document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}">${l}</option>`).sort().join('');
+  document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}">${l}${main==l?' (main)':''}</option>`).sort().join('');
   document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
 }
 window.side = side;
