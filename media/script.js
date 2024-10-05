@@ -1,5 +1,6 @@
 // Imports
 import * as ftl from '/media/parsers/ftl.js'
+import * as yaml from '/media/parsers/yaml.js'
 
 // On window load do some stuff
 document.addEventListener("DOMContentLoaded", () => {
@@ -170,6 +171,17 @@ document.getElementById('file-save-button').addEventListener('click', ()=>{
       .then(content => {
         download(URL.createObjectURL(content), 'translations.zip');
       });
+  } else if (type === 'yaml-o') {
+    let zip = new JSZip();
+    Object.keys(data).forEach(lang => {
+      zip.file(lang+'.yaml', yaml.fromObject(data[lang]))
+    })
+    zip.generateAsync({ type: "blob" })
+      .then(content => {
+        download(URL.createObjectURL(content), 'translations.zip');
+      });
+  } else if (type === 'yaml-m') {
+    download(URL.createObjectURL(new Blob([yaml.fromObject(data)])), 'translations.yaml');
   }
 }, false)
 
