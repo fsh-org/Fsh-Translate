@@ -22,4 +22,12 @@ export function fromObject(obj) {
     .join('\n');
 }
 
-export function toObject(yaml) {}
+export function toObject(yaml) {
+  let obj = {};
+  yaml
+    .split('\n')
+    .filter(l => l.length>0)
+    .join('\n')
+    .split(/\n(?=[^ ])/)
+  return obj;
+}
