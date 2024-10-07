@@ -87,6 +87,7 @@ function setStringForLang(lang, val, prefix) {
     }
   });
 }
+window.setStringForLang = setStringForLang;
 function loadPanelFor(id) {
   let cur = document.getElementById('lang-select').value;
   document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>
