@@ -2,7 +2,7 @@ function fromObjectWithPrefix(obj, prefix) {
   return Object.keys(obj)
     .map(k => {
       if (typeof obj[k] === 'object') {
-        return prefix+obj[k]+':\n'+fromObjectWithPrefix(obj[k], prefix+'  ');
+        return prefix+k+':\n'+fromObjectWithPrefix(obj[k], prefix+'  ');
       } else {
         return `${prefix}${k}: ${obj[k]}`;
       }
@@ -14,7 +14,7 @@ export function fromObject(obj) {
   return Object.keys(obj)
     .map(k => {
       if (typeof obj[k] === 'object') {
-        return obj[k]+':\n'+fromObjectWithPrefix(obj[k], '  ');
+        return k+':\n'+fromObjectWithPrefix(obj[k], '  ');
       } else {
         return `${k}: ${obj[k]}`;
       }
