@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowHTML: true
   });
   tippy('#nav-editor-button', {
-    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en');side()">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=true)">Expand tree</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=false)">Shrink tree</button>`,
+    content: `<button onclick="main=prompt('Main language code', main??'en');side()">Set main language</button><button onclick="normalizeCodes()">Iso code normalize</button><hr><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=true)">Expand tree</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=false)">Shrink tree</button>`,
     trigger: 'click',
     placement: 'bottom',
     arrow: false,
@@ -51,7 +51,7 @@ function deleteCurrentLang() {
   }
 }
 function addLang() {
-  let code = prompt('Iso code of new language');
+  let code = prompt('Code of new language');
   if (!code) return;
   data[code] = {};
   side();
@@ -121,11 +121,11 @@ window.data = data;
 document.getElementById('file-load-button').addEventListener('click', ()=>{
   let files = document.getElementById('file').files;
   let type = document.getElementById('type-load').value;
-  main ??= prompt('Main language iso code (ej: en, es-ES...)', 'en') ?? 'en';
+  main ??= prompt('Main language code', 'en') ?? 'en';
   if (type === 'json-o') {
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
-        let code = prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0]);
+        let code = prompt('Code for: '+files[i].name, files[i].name.split('.')[0]);
         data[code] = parse(content, 'json');
         side();
       })
@@ -141,7 +141,7 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
   } else if (type === 'ftl') {
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
-        let code = prompt('Iso code for: '+files[i].name, files[i].name.split('.')[0]);
+        let code = prompt('Code for: '+files[i].name, files[i].name.split('.')[0]);
         data[code] = parse(content, 'ftl');
         side();
       })
