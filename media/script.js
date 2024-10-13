@@ -97,7 +97,7 @@ window.setStringForLang = setStringForLang;
 function loadPanelFor(id) {
   let cur = document.getElementById('lang-select').value;
   document.querySelector('.panel').innerHTML = `<h2>${id.replaceAll('.',' > ')}</h2>
-<p>${getStringForLang(main, id)}</p>
+<p>${getStringForLang(main??Object.keys(data)[0], id)}</p>
 <hr>
 <textarea id="editor" class="editor" onkeyup="setStringForLang('${cur}', this.value, '${id}')">${getStringForLang(cur, id)}</textarea>`;
 }
