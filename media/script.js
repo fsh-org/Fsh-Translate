@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowHTML: true
   });
   tippy('#nav-editor-button', {
-    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en');side()">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button>`,
+    content: `<button onclick="main=prompt('Main language iso code (ej: en, es-ES...)', 'en');side()">Set main language</button><button onclick="normalizeCodes()">Normalize codes</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=true)">Expand tree</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=false)">Shrink tree</button>`,
     trigger: 'click',
     placement: 'bottom',
     arrow: false,
