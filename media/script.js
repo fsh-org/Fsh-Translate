@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allowHTML: true
   });
   tippy('#nav-editor-button', {
-    content: `<button onclick="main=prompt('Main language code', main??'en');side()">Set main language</button><button onclick="normalizeCodes()">Iso code normalize</button><hr><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=true)">Expand tree</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=false)">Shrink tree</button>`,
+    content: `<button onclick="main=prompt('Main language code', main??'en');side()">Set main language</button><button onclick="normalizeCodes()">Iso code normalize</button><hr style="width:80%"><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=true)">Expand tree</button><button onclick="Array.from(document.querySelectorAll('details')).forEach(e=>e.open=false)">Shrink tree</button>`,
     trigger: 'click',
     placement: 'bottom',
     arrow: false,
@@ -26,10 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Utility functions
-function parse(con, type) {
-  if (type === 'json') return JSON.parse(con);
-  if (type === 'ftl') return ftl.toObject(con);
-  return {}
+function parse(con, type, name) {
+  try {
+    if (type === 'json') return JSON.parse(con);
+    if (type === 'ftl') return ftl.toObject(con);
+    if (type === 'yaml') return yaml.toObject(con);
+    return {};
+  } catch(err) {
+    alert(`Could not parse ${name}`)
+    return {};
+  }
 }
 function readFile(file) {
   return new Promise((resolve, reject) => {
@@ -100,9 +106,8 @@ function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details id="d-${(prefix.length?prefix+'.':'')+k}"${document.getElementById(`d-${(prefix.length?prefix+'.':'')+k}`)?.getAttribute('open')?' open':''}><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
 }
 function side() {
-  if (!data[main]) return;
   document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}">${l}${main==l?' (main)':''}</option>`).sort().join('');
-  document.getElementById('tree').innerHTML = ObjectToTree(data[main], '');
+  document.getElementById('tree').innerHTML = ObjectToTree(data[main]??(data[Object.keys(data)[0]]??{}), '');
 }
 window.side = side;
 function download(url, name) {
@@ -126,13 +131,13 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
         let code = prompt('Code for: '+files[i].name, files[i].name.split('.')[0]);
-        data[code] = parse(content, 'json');
+        data[code] = parse(content, 'json', files[i].name);
         side();
       })
     }
   } else if (type === 'json-m') {
     readFile(files[0]).then(content => {
-      let parsed = parse(content, 'json');
+      let parsed = parse(content, 'json', files[0].name);
       Object.keys(parsed).forEach(l => {
         data[l] = parsed[l];
         side();
@@ -142,7 +147,7 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
     for (let i = 0; i<files.length; i++) {
       readFile(files[i]).then(content => {
         let code = prompt('Code for: '+files[i].name, files[i].name.split('.')[0]);
-        data[code] = parse(content, 'ftl');
+        data[code] = parse(content, 'ftl', files[i].name);
         side();
       })
     }
