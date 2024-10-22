@@ -49,6 +49,7 @@ main {
   display: flex;
   flex-direction: row;
   flex: 1;
+  overflow: auto;
 }
 .gutter {
   background-color: var(--bg-2);
@@ -99,6 +100,12 @@ details {
   border-radius: 0px;
 }
 
+.panel {
+  overflow: auto;
+}
+.panel p {
+  word-wrap: break-word;
+}
 .editor {
   width: 100%;
   height: 25%;
