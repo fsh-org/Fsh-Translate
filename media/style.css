@@ -1,4 +1,6 @@
 body {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   width: 100dvw;
   height: 100vh;
@@ -29,26 +31,24 @@ nav {
   display: flex;
   gap: 10px;
   align-items: center;
-  height: 8vh;
-  height: 8dvh;
+  height: 5vh;
+  height: 5dvh;
+  min-height: 45px;
   background-color: var(--bg-2);
 }
 nav img {
-  width: 6vh;
-  width: 6dvh;
-  height: 6vh;
-  height: 6dvh;
+  width: 4vh;
+  width: 4dvh;
+  max-height: 40px;
+  height: 4vh;
+  height: 4dvh;
+  min-height: 40px;
 }
 
 main {
   display: flex;
   flex-direction: row;
-  height: 92vh;
-  height: 92dvh;
-}
-main div {
-  height: 92vh;
-  height: 92dvh;
+  flex: 1;
 }
 .gutter {
   background-color: var(--bg-2);
