@@ -106,7 +106,8 @@ function ObjectToTree(obj, prefix) {
   return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details id="d-${(prefix.length?prefix+'.':'')+k}"${document.getElementById(`d-${(prefix.length?prefix+'.':'')+k}`)?.getAttribute('open')==null?'':' open'}><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
 }
 function side() {
-  document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}">${l}${main==l?' (main)':''}</option>`).sort().join('');
+  const ls = document.getElementById('lang-select');
+  ls.innerHTML = Object.keys(data).map(l=>`<option value="${l}"${ls?.value===l?' selected':''}>${l}${main==l?' (main)':''}</option>`).sort().join('');
   document.getElementById('tree').innerHTML = ObjectToTree(data[main]??(data[Object.keys(data)[0]]??{}), '');
 }
 window.side = side;
