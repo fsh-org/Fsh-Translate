@@ -103,7 +103,7 @@ function loadPanelFor(id) {
 }
 window.loadPanelFor = loadPanelFor;
 function ObjectToTree(obj, prefix) {
-  return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details id="d-${(prefix.length?prefix+'.':'')+k}"${document.getElementById(`d-${(prefix.length?prefix+'.':'')+k}`)?.getAttribute('open')?' open':''}><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
+  return Object.keys(obj).map(k=>(typeof obj[k])==='string'?`<button onclick="loadPanelFor('${(prefix.length?prefix+'.':'')+k}')">${k}</button>`:`<details id="d-${(prefix.length?prefix+'.':'')+k}"${document.getElementById(`d-${(prefix.length?prefix+'.':'')+k}`).getAttribute('open')==null?'':' open'}><summary>${k}</summary>${ObjectToTree(obj[k], (prefix.length?prefix+'.':'')+k)}</details>`).join('')
 }
 function side() {
   document.getElementById('lang-select').innerHTML = Object.keys(data).map(l=>`<option value="${l}">${l}${main==l?' (main)':''}</option>`).sort().join('');
