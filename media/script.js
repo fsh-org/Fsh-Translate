@@ -1,5 +1,6 @@
 // Imports
 import * as ftl from '/media/parsers/ftl.js'
+import * as csv from '/media/parsers/csv.js'
 import * as yaml from '/media/parsers/yaml.js'
 
 // On window load do some stuff
@@ -30,6 +31,7 @@ function parse(con, type, name) {
   try {
     if (type === 'json') return JSON.parse(con);
     if (type === 'ftl') return ftl.toObject(con);
+    if (type === 'csv') return csv.toObject(con);
     if (type === 'yaml') return yaml.toObject(con);
     return {};
   } catch(err) {
@@ -153,6 +155,14 @@ document.getElementById('file-load-button').addEventListener('click', ()=>{
         side();
       })
     }
+  } else if (type === 'csv') {
+    readFile(files[0]).then(content => {
+      let parsed = parse(content, 'csv', files[0].name);
+      Object.keys(parsed).forEach(l => {
+        data[l] = parsed[l];
+        side();
+      })
+    })
   }
 }, false)
 
