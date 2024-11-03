@@ -39,9 +39,11 @@ nav {
 nav img {
   width: 4vh;
   width: 4dvh;
-  max-height: 40px;
+  max-width: 40px;
+  min-width: 40px;
   height: 4vh;
   height: 4dvh;
+  max-height: 40px;
   min-height: 40px;
 }
 
