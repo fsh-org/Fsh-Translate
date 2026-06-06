@@ -18,7 +18,7 @@ body {
 }
 
 .tippy-box {
-  background-color: var(--bg-3);
+  background-color: var(--bg-1);
 }
 .tippy-content {
   display: flex;
